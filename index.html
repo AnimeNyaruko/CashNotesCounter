@@ -122,8 +122,8 @@ input::placeholder{color:var(--muted);opacity:.6;font-weight:400}
       <div>
         <div class="lbl">Tổng cộng</div>
         <div class="sum"><span id="total">0</span><small>VNĐ</small></div>
-        <div class="minus" id="minus" hidden>-1.500.000 VNĐ</div>
-        <div class="rest"><span class="lbl">Còn lại</span><b id="rest">-1.500.000</b><small>VNĐ</small></div>
+        <div class="minus" id="minus" hidden>-1.000.000 VNĐ</div>
+        <div class="rest"><span class="lbl">Còn lại</span><b id="rest">-1.000.000</b><small>VNĐ</small></div>
       </div>
       <div class="btns">
         <button class="btn" id="detailBtn" type="button" aria-expanded="false" aria-controls="detail">Chi tiết</button>
@@ -140,7 +140,7 @@ input::placeholder{color:var(--muted);opacity:.6;font-weight:400}
   <section class="detail" id="detail" hidden>
     <p class="dl">Số tờ đã nhập (x)</p>
     <div class="cells" id="xRow"></div>
-    <p class="dl">Số tờ còn lại (y), tổng đúng 1.500.000 VNĐ</p>
+    <p class="dl">Số tờ còn lại (y), tổng đúng 1.000.000 VNĐ</p>
     <div class="cells" id="yRow"></div>
   </section>
 
@@ -153,12 +153,12 @@ var DENOMS = [
   [50000,"#b8467c"],[20000,"#3a5fb0"],[10000,"#7d6a22"],
   [5000,"#23838f"],[2000,"#66786a"],[1000,"#86608a"]
 ];
-var U = [500,200,100,50,20,10,5,2,1], GOAL = 1500;
+var U = [500,200,100,50,20,10,5,2,1], GOAL = 1000;
 function fmt(n){ return String(n).replace(/\B(?=(\d{3})+(?!\d))/g,"."); }
 function $(id){ return document.getElementById(id); }
 
-// y = làm tròn(k × x), k = 1.500.000 ÷ tổng đã nhập, rồi điều chỉnh bằng quy hoạch động
-// để tổng y đúng 1.500.000 VNĐ và y ≤ x ở mọi mệnh giá (đơn vị tính: nghìn VNĐ)
+// y = làm tròn(k × x), k = 1.000.000 ÷ tổng đã nhập, rồi điều chỉnh bằng quy hoạch động
+// để tổng y đúng 1.000.000 VNĐ và y ≤ x ở mọi mệnh giá (đơn vị tính: nghìn VNĐ)
 function solve(c){
   var total = 0; c.forEach(function(n,i){ total += n*U[i]; });
   if (total < GOAL) return null;
@@ -218,7 +218,7 @@ function update(){
     x[2].classList.toggle('on', sub > 0);
     x[3].classList.toggle('on', x[1].value !== '');
   });
-  var rest = total-1500000;
+  var rest = total-1000000;
   $('total').textContent = fmt(total);
   $('rest').textContent = fmt(rest);
   $('rest').classList.toggle('neg', rest < 0);
@@ -230,8 +230,8 @@ function update(){
   $('xRow').innerHTML = cells(c);
   $('yRow').innerHTML = cells(y);
   $('msg').textContent = !s
-    ? (total ? 'Tổng chưa đủ 1.500.000 VNĐ nên chưa có tờ cần lấy ra.' : '')
-    : (used < GOAL ? 'Không ghép đúng 1.500.000 VNĐ được từ các tờ đã nhập, thiếu '+fmt((GOAL-used)*1000)+' VNĐ.' : '');
+    ? (total ? 'Tổng chưa đủ 1.000.000 VNĐ nên chưa có tờ cần lấy ra.' : '')
+    : (used < GOAL ? 'Không ghép đúng 1.000.000 VNĐ được từ các tờ đã nhập, thiếu '+fmt((GOAL-used)*1000)+' VNĐ.' : '');
 }
 
 $('detailBtn').addEventListener('click', function(){
